@@ -1,0 +1,46 @@
+server:
+  port: 8080
+
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/tax
+    username: postgres
+    password: 314159265351
+    driver-class-name: org.postgresql.Driver
+  liquibase:
+    change-log: classpath:/db/changelog/master.yaml
+  messages:
+    encoding: UTF-8
+
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        generate_statistics: false
+        format_sql: false
+    show-sql: true
+  graphql:
+    graphiql:
+      enabled: true
+
+
+logging:
+  level:
+    root: INFO
+    org.springframework: INFO
+    com.zaxxer.hikari: ERROR
+    liquibase: ERROR
+    org.springframework.security: ERROR
+  file:
+    name: logs/spring.log
+
+
+
+springdoc:
+  api-docs:
+    path: /docs
+  swagger-ui:
+    path: /swagger
