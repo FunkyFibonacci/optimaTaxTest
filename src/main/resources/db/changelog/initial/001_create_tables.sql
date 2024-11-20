@@ -9,7 +9,7 @@ CREATE TABLE countries
     updated_at TIMESTAMP,
     version    BIGINT,
     name       VARCHAR(255) UNIQUE   NOT NULL,
-    code       CHAR(2)               NOT NULL UNIQUE
+    code       VARCHAR(3)               NOT NULL UNIQUE
 );
 
 CREATE TABLE income_categories
@@ -27,8 +27,8 @@ CREATE TABLE tax_rates
     created_at         TIMESTAMP,
     updated_at         TIMESTAMP,
     version            BIGINT,
-    country_id         INT                   NOT NULL,
-    income_category_id INT                   NOT NULL,
+    country_id         BIGINT                   NOT NULL,
+    income_category_id BIGINT                NOT NULL,
     rate               DECIMAL(5, 2)         NOT NULL,
     FOREIGN KEY (country_id) REFERENCES countries (id) ON DELETE CASCADE,
     FOREIGN KEY (income_category_id) REFERENCES income_categories (id) ON DELETE CASCADE,

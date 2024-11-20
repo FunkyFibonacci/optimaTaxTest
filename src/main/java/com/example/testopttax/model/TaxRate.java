@@ -11,11 +11,11 @@ import java.math.BigDecimal;
 @Setter
 @RequiredArgsConstructor
 public class TaxRate extends Model {
-    @ManyToOne(fetch = FetchType.EAGER)  // Используем EAGER загрузку
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "country_id", nullable = false)
     private Country country;
 
-    @ManyToOne(fetch = FetchType.EAGER)  // Используем EAGER загрузку
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "income_category_id", nullable = false)
     private IncomeCategory incomeCategory;
 
