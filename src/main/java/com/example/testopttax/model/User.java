@@ -17,9 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Cacheable
-@Table(name = "users", indexes = {
-        @Index(columnList = "username")
-})
+@Table(name = "users")
 public class User extends Model implements UserDetails {
     private String firstname;
     private String lastname;
@@ -39,6 +37,10 @@ public class User extends Model implements UserDetails {
     @Override
     public String getPassword() {
         return password;
+    }
+    @Override
+    public String getUsername() {
+        return username;
     }
 
 }

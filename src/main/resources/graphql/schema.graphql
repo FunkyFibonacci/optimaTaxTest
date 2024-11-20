@@ -1,0 +1,11 @@
+type Query {
+    getUserById(id: !): User
+}
+
+type User {
+    id: Int
+    firstname: String
+    lastname: String
+    username: String
+    password: String
+}
