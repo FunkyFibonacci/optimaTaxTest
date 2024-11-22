@@ -2,8 +2,8 @@ package com.example.testopttax.service.impl;
 
 import com.example.testopttax.exception.CustomException;
 import com.example.testopttax.model.IncomeCategory;
-import com.example.testopttax.record.income.IncomeCategoryInput;
-import com.example.testopttax.record.income.IncomeCategoryResponceDto;
+import com.example.testopttax.record.incomeCategory.IncomeCategoryInput;
+import com.example.testopttax.record.incomeCategory.IncomeCategoryResponceDto;
 import com.example.testopttax.repo.IncomeCategoryRepository;
 import com.example.testopttax.service.IncomeCategoryService;
 import lombok.RequiredArgsConstructor;

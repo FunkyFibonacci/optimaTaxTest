@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Builder
 @Entity
 @Table(name = "user_incomes", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"user_id", "income_category_id", "income_date"})
+        @UniqueConstraint(columnNames = {"user_id", "income_category_id"})
 })
 public class UserIncome extends Model {
     @ManyToOne(optional = false)
@@ -26,7 +26,4 @@ public class UserIncome extends Model {
 
     @Column(nullable = false, precision = 15, scale = 2)
     private BigDecimal amount;
-
-    @Column(nullable = false)
-    private LocalDate incomeDate;
 }

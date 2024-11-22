@@ -1,4 +1,4 @@
-package com.example.testopttax.record.income;
+package com.example.testopttax.record.incomeCategory;
 
 public record IncomeCategoryInput(
         String name

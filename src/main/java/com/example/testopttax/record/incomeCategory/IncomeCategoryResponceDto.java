@@ -1,4 +1,4 @@
-package com.example.testopttax.record.income;
+package com.example.testopttax.record.incomeCategory;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 

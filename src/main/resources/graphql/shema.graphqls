@@ -1,4 +1,5 @@
 type Query {
+#    методы для юзера
     getAllUsers: [User]
 #    Методы для стран
     getAllCountries: [Country]
@@ -24,6 +25,23 @@ type Mutation {
     addTaxRate(input: TaxRateInput!): TaxRate!
     updateTaxRate(input: TaxRateInput!): TaxRate!
 
+#    Мутации для доходов юзера
+    addIncome(input: UserIncomeInput!): UserIncome
+}
+
+
+type UserIncome{
+    id: ID
+    createdAt:String
+    updatedAt:String
+    user:User
+    incomeCategory:IncomeCategory
+    amount:Float
+}
+
+input UserIncomeInput{
+    incomeCategoryId: ID!
+    amount:Float
 }
 
 #Типы для налоговой ставки:

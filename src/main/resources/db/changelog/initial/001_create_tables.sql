@@ -71,10 +71,9 @@ CREATE TABLE user_incomes
     user_id            BIGINT                NOT NULL,
     income_category_id BIGINT                NOT NULL,
     amount             NUMERIC(15, 2)        NOT NULL CHECK (amount >= 0),
-    income_date        DATE                  NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
     FOREIGN KEY (income_category_id) REFERENCES income_categories (id) ON DELETE CASCADE
 );
 
 ALTER TABLE user_incomes
-    ADD CONSTRAINT unique_user_income UNIQUE (user_id, income_category_id, income_date);
+    ADD CONSTRAINT unique_user_income UNIQUE (user_id, income_category_id);
