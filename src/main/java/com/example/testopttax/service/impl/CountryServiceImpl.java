@@ -50,7 +50,7 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public CountryResponceDto getCountryById(Long id) {
-        Country countryFromDb = countryRepository.findById(id).orElseThrow(() -> new CustomException("Не найдена страна по идентификатору"));
+        Country countryFromDb = findById(id);
         return mapModelToResponceDto(countryFromDb);
     }
 
@@ -60,7 +60,13 @@ public class CountryServiceImpl implements CountryService {
         return mapModelToResponceDto(countryFromDb);
     }
 
+    @Override
     public CountryResponceDto mapModelToResponceDto(Country country){
         return new CountryResponceDto(country.getId(), country.getCreatedAt(), country.getUpdatedAt(), country.getName(),country.getCode());
+    }
+
+    @Override
+    public Country findById(Long id) {
+        return countryRepository.findById(id).orElseThrow(() -> new CustomException("Не найдена страна по идентификатору"));
     }
 }

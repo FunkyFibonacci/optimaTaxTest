@@ -1,5 +1,6 @@
 package com.example.testopttax.service;
 
+import com.example.testopttax.model.Country;
 import com.example.testopttax.record.country.CountryInput;
 import com.example.testopttax.record.country.CountryResponceDto;
 import org.springframework.stereotype.Service;
@@ -15,4 +16,6 @@ public interface CountryService {
     CountryResponceDto getCountryById(Long id);
 
     CountryResponceDto getCountryByName(String name);
+    CountryResponceDto mapModelToResponceDto(Country country);
+    Country findById(Long id);
 }

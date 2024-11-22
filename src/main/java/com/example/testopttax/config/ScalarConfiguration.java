@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ScalarConfiguration {
-
     @Bean
     public RuntimeWiring.Builder runtimeWiringBuilder() {
         return RuntimeWiring.newRuntimeWiring()

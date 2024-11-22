@@ -1,19 +1,28 @@
 type Query {
     getAllUsers: [User]
+#    Методы для стран
     getAllCountries: [Country]
     getCountryById(id: ID): Country
     getCountryByName(name: String): Country
-
+#    Методы для категорий доходов
     getAllCategories: [IncomeCategory]
     getIncomeCategoryById(id: ID): IncomeCategory
     getIncomeCategoryByName(name: String): IncomeCategory
 
+#    Методы для налоговых ставок
     getTaxRatesOfCountries: [TaxRate]
 }
 
 type Mutation {
+#    Мутации для стран
     addCountry(input: CountryInput!): Country!
+
+#    Мутаци для категорий доходов
     addIncomeCategory(input: IncomeCategoryInput!): IncomeCategory!
+
+#    Мутации для налоговых ставок
+    addTaxRate(input: TaxRateInput!): TaxRate!
+    updateTaxRate(input: TaxRateInput!): TaxRate!
 
 }
 
@@ -28,7 +37,6 @@ type TaxRate{
 }
 
 input TaxRateInput{
-    id: ID!
     countryId:ID!
     incomeCategoryId:ID!
     rate:Float

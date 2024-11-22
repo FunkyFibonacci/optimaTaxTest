@@ -64,7 +64,7 @@ ALTER TABLE users
 
 CREATE TABLE user_incomes
 (
-    id                 BIGSERIAL PRIMARY KEY NOT NULL,
+    id                 BIGSERIAL PRIMARY KEY NOT NULL ,
     created_at         TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at         TIMESTAMP,
     version            BIGINT,

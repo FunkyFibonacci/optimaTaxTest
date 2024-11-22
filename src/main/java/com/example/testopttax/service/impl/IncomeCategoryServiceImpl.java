@@ -53,11 +53,18 @@ public class IncomeCategoryServiceImpl implements IncomeCategoryService {
 
     @Override
     public IncomeCategoryResponceDto getIncomeCategoryById(Long id) {
-        IncomeCategory incomeCategoryFromDb = incomeCategoryRepository.findById(id).orElseThrow(() -> new CustomException("Не найдена категория по Идентификатору!"));
+        IncomeCategory incomeCategoryFromDb = findById(id);
         return mapModelToResponceDto(incomeCategoryFromDb);
     }
 
+    @Override
     public IncomeCategoryResponceDto mapModelToResponceDto(IncomeCategory incomeCategory){
         return new IncomeCategoryResponceDto(incomeCategory.getId(), incomeCategory.getCreatedAt(),incomeCategory.getUpdatedAt(),incomeCategory.getName());
     }
+
+    @Override
+    public IncomeCategory findById(Long id) {
+        return incomeCategoryRepository.findById(id).orElseThrow(() -> new CustomException("Не найдена категория по Идентификатору!"));
+    }
+
 }
