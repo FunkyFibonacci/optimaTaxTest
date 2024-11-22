@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
                 .lastname(userDto.lastname())
                 .username(userDto.username())
                 .password(passwordEncoder.encode(userDto.password()))
-                .role(roleRepository.findByRole(Roles.USER.getValue()).orElseThrow(
+                .role(roleRepository.findByRoleIgnoreCase(Roles.USER.getValue()).orElseThrow(
                         () -> new IllegalArgumentException("Роль не найдена")))
                 .build();
     }

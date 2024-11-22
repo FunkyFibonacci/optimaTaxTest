@@ -12,6 +12,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @Component
 @Slf4j
@@ -30,6 +33,34 @@ public class CountryServiceImpl implements CountryService {
         country.setName(input.name());
         Country countrySaved = countryRepository.save(country);
         log.info("Успешно создана новая страна: {}", countrySaved.getName());
-        return new CountryResponceDto(countrySaved.getId(), countrySaved.getCreatedAt(),countrySaved.getUpdatedAt(),countrySaved.getName(),countrySaved.getCode());
+        return mapModelToResponceDto(countrySaved);
+    }
+
+    @Override
+    public List<CountryResponceDto> getCountries() {
+        return countryRepository.findAll().stream().map(country -> new CountryResponceDto(
+                country.getId(),
+                country.getCreatedAt(),
+                country.getUpdatedAt(),
+                country.getName(),
+                country.getCode()
+                )
+        ).collect(Collectors.toList());
+    }
+
+    @Override
+    public CountryResponceDto getCountryById(Long id) {
+        Country countryFromDb = countryRepository.findById(id).orElseThrow(() -> new CustomException("Не найдена страна по идентификатору"));
+        return mapModelToResponceDto(countryFromDb);
+    }
+
+    @Override
+    public CountryResponceDto getCountryByName(String name) {
+        Country countryFromDb = countryRepository.findByNameIgnoreCase(name).orElseThrow(() -> new CustomException("Не найдена страна по названию!"));
+        return mapModelToResponceDto(countryFromDb);
+    }
+
+    public CountryResponceDto mapModelToResponceDto(Country country){
+        return new CountryResponceDto(country.getId(), country.getCreatedAt(), country.getUpdatedAt(), country.getName(),country.getCode());
     }
 }

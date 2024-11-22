@@ -1,7 +1,68 @@
 type Query {
     getAllUsers: [User]
+    getAllCountries: [Country]
+    getCountryById(id: ID): Country
+    getCountryByName(name: String): Country
+
+    getAllCategories: [IncomeCategory]
+    getIncomeCategoryById(id: ID): IncomeCategory
+    getIncomeCategoryByName(name: String): IncomeCategory
+
+    getTaxRatesOfCountries: [TaxRate]
 }
 
+type Mutation {
+    addCountry(input: CountryInput!): Country!
+    addIncomeCategory(input: IncomeCategoryInput!): IncomeCategory!
+
+}
+
+#Типы для налоговой ставки:
+type TaxRate{
+    id: ID!
+    createdAt:String
+    updatedAt:String
+    country: Country
+    incomeCategory:IncomeCategory
+    rate:Float
+}
+
+input TaxRateInput{
+    id: ID!
+    countryId:ID!
+    incomeCategoryId:ID!
+    rate:Float
+}
+
+
+
+
+#Типы для стран
+type Country{
+    id: ID
+    createdAt:String
+    updatedAt:String
+    name:String
+    code:String
+}
+
+input CountryInput{
+    name:String!
+    code:String!
+}
+
+#Типы для категорий
+type IncomeCategory {
+    id: ID!
+    name: String!
+}
+
+input IncomeCategoryInput {
+    name: String!
+}
+
+
+#Типо для юзера
 type User {
     id: ID!
     firstname: String!
@@ -12,6 +73,7 @@ type User {
     updatedAt: String
 }
 
+#Тип для полей
 type Role {
     id: ID!
     role: String!
