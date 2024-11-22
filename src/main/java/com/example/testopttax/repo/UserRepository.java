@@ -1,5 +1,6 @@
 package com.example.testopttax.repo;
 
+import com.example.testopttax.model.Role;
 import com.example.testopttax.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

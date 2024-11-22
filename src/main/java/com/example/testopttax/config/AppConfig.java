@@ -1,5 +1,7 @@
 package com.example.testopttax.config;
 
+import graphql.language.StringValue;
+import graphql.schema.*;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import org.springframework.boot.CommandLineRunner;
@@ -21,14 +23,4 @@ public class AppConfig {
                         .title("Tax")
                         .version("1.0.0"));
     }
-
-    @Bean
-    public CommandLineRunner generatePasswordHash(PasswordEncoder passwordEncoder) {
-        return args -> {
-            String rawPassword = "qweqwe";
-            String hashedPassword = passwordEncoder.encode(rawPassword);
-            System.out.println("Хэш'" + rawPassword + "' " + hashedPassword);
-        };
-    }
-
 }

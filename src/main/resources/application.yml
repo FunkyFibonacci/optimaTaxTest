@@ -6,13 +6,12 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/tax
     username: postgres
-    password: 12345678
+    password: 314159265351
     driver-class-name: org.postgresql.Driver
   liquibase:
     change-log: classpath:/db/changelog/master.yaml
   messages:
     encoding: UTF-8
-
 
   jpa:
     hibernate:
@@ -22,6 +21,7 @@ spring:
         generate_statistics: false
         format_sql: false
     show-sql: true
+    open-in-view: false
   graphql:
     graphiql:
       enabled: true
@@ -44,3 +44,10 @@ springdoc:
     path: /docs
   swagger-ui:
     path: /swagger
+graphql:
+  servlet:
+    max-query-depth: 5
+    exception-handlers-enabled: false
+
+  tools:
+    introspection-enabled: true

@@ -1,6 +1,7 @@
 package com.example.testopttax.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.*;
@@ -16,6 +17,6 @@ import java.util.Set;
 @Table(name = "roles")
 public class Role extends Model{
     private String role;
-    @OneToMany(mappedBy = "role")
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "role")
     private Set<User> users;
 }

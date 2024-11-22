@@ -25,7 +25,7 @@ public class User extends Model implements UserDetails {
     private String username;
     private String password;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id")
     private Role role;
 
