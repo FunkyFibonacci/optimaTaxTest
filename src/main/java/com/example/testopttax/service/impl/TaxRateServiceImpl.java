@@ -70,6 +70,11 @@ public class TaxRateServiceImpl implements TaxRateService {
         return mapModelToResponceDto(updatedTaxRate);
     }
 
+    @Override
+    public List<TaxRate> getTaxRateByCountry(Country country) {
+        return taxRateRepository.findTaxRatesByCountry(country);
+    }
+
     public TaxRateResponceDto mapModelToResponceDto(TaxRate taxRate){
         return new TaxRateResponceDto(taxRate.getId(),taxRate.getCreatedAt(),taxRate.getUpdatedAt(),countryService.mapModelToResponceDto(taxRate.getCountry()),categoryService.mapModelToResponceDto(taxRate.getIncomeCategory()),taxRate.getRate());
     }

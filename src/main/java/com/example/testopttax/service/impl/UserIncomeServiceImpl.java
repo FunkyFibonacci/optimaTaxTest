@@ -16,6 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -48,5 +49,10 @@ public class UserIncomeServiceImpl implements UserIncomeService {
                 userService.mapModelToDto(userIncome.getUser()),
                 incomeCategoryService.mapModelToResponceDto(userIncome.getIncomeCategory()),
                 userIncome.getAmount());
+    }
+
+    @Override
+    public List<UserIncome> getUserIncomesByUser(User user) {
+        return userIncomeRepository.findUserIncomeByUser(user);
     }
 }

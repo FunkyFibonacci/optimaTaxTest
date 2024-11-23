@@ -12,6 +12,9 @@ type Query {
 
 #    Методы для налоговых ставок
     getTaxRatesOfCountries: [TaxRate]
+
+#    Методы для получен отчета
+    generateReportByCountryId(countryId:ID!):CountryReport!
 }
 
 type Mutation {
@@ -30,6 +33,21 @@ type Mutation {
 }
 
 
+#Типы для отчетов
+type CountryReport{
+    country: Country!
+    totalIncome:Float
+    totalTax:Float
+    incomeDetail:[IncomeDetail]
+}
+
+type IncomeDetail{
+    incomeCategory:IncomeCategory!
+    income:Float
+    tax:Float
+}
+
+#Типы для доходов пользователя
 type UserIncome{
     id: ID
     createdAt:String
@@ -59,7 +77,6 @@ input TaxRateInput{
     incomeCategoryId:ID!
     rate:Float
 }
-
 
 
 

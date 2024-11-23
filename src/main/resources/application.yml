@@ -20,7 +20,7 @@ spring:
       hibernate:
         generate_statistics: false
         format_sql: false
-    show-sql: true
+    show-sql: false
     open-in-view: false
   graphql:
     graphiql:
