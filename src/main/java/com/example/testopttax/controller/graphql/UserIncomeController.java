@@ -1,5 +1,6 @@
 package com.example.testopttax.controller.graphql;
 
+import com.example.testopttax.enums.ReportFormat;
 import com.example.testopttax.record.userIncome.UserIncomeInput;
 import com.example.testopttax.record.userIncome.UserIncomeResponceDto;
 import com.example.testopttax.service.UserIncomeService;
@@ -15,6 +16,7 @@ public class UserIncomeController {
 
     @MutationMapping
     public UserIncomeResponceDto addIncome(@Argument("input")UserIncomeInput input){
+        String value = ReportFormat.DETAILED.getValue();
         return userIncomeService.addIncome(input);
     }
 }

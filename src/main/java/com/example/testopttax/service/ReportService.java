@@ -5,5 +5,5 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface ReportService {
-    CountryReportResponceDto getReportByCountryId(Long id);
+    CountryReportResponceDto makeReportByCountryId(Long countryId);
 }

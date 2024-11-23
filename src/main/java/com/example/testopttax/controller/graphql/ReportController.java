@@ -13,6 +13,6 @@ public class ReportController {
     private final ReportService reportService;
     @QueryMapping
     public CountryReportResponceDto generateReportByCountryId(@Argument Long countryId){
-        return reportService.getReportByCountryId(countryId);
+        return reportService.makeReportByCountryId(countryId);
     }
 }

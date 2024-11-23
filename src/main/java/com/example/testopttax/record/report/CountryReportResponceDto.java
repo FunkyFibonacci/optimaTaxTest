@@ -9,6 +9,6 @@ public record CountryReportResponceDto(
         CountryResponceDto country,
         BigDecimal totalIncome,
         BigDecimal totalTax,
-        List<IncomeDetailResponceDto> incomeDetail
-) {
+        List<IncomeDetailResponceDto> incomeDetail,
+        String signature) {
 }

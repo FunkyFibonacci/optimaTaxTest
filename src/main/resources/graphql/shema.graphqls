@@ -35,14 +35,15 @@ type Mutation {
 
 #Типы для отчетов
 type CountryReport{
-    country: Country!
+    country: Country
     totalIncome:Float
     totalTax:Float
     incomeDetail:[IncomeDetail]
+    signature: String
 }
 
 type IncomeDetail{
-    incomeCategory:IncomeCategory!
+    incomeCategory:IncomeCategory
     income:Float
     tax:Float
 }
