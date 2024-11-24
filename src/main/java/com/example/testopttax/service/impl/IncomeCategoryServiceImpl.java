@@ -64,7 +64,10 @@ public class IncomeCategoryServiceImpl implements IncomeCategoryService {
 
     @Override
     public IncomeCategory findById(Long id) {
-        return incomeCategoryRepository.findById(id).orElseThrow(() -> new CustomException("Не найдена категория по Идентификатору!"));
+        return incomeCategoryRepository.findById(id).orElseThrow(() -> {
+            log.error("Не найдена категория доода с id: {}", id);
+            return new CustomException("Не найдена категория дохода с id:"+id);
+        });
     }
 
 }

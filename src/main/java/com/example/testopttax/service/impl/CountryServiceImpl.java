@@ -1,5 +1,6 @@
 package com.example.testopttax.service.impl;
 
+import com.example.testopttax.enums.ReportFormat;
 import com.example.testopttax.exception.CustomException;
 import com.example.testopttax.model.Country;
 import com.example.testopttax.record.country.CountryInput;
@@ -28,9 +29,19 @@ public class CountryServiceImpl implements CountryService {
             log.error("Код страные иммеет некорректные значения!");
             throw new CustomException("Код страны должен быть равен 3 символам!");
         }
+
+        ReportFormat reportFormat;
+        try {
+            reportFormat = ReportFormat.valueOf(input.reportFormat());
+        } catch (IllegalArgumentException e) {
+            log.error("Некорректный формат отчета: {}", input.reportFormat());
+            throw new CustomException("Некорректный формат отчета, узнайте сначало форматы отчетов!");
+        }
+
         Country country = new Country();
-        country.setCode(input.code());
+        country.setCode(input.code().toUpperCase());
         country.setName(input.name());
+        country.setReportFormat(reportFormat);
         Country countrySaved = countryRepository.save(country);
         log.info("Успешно создана новая страна: {}", countrySaved.getName());
         return mapModelToResponceDto(countrySaved);
@@ -56,7 +67,11 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public CountryResponceDto getCountryByName(String name) {
-        Country countryFromDb = countryRepository.findByNameIgnoreCase(name).orElseThrow(() -> new CustomException("Не найдена страна по названию!"));
+        Country countryFromDb = countryRepository.findByNameIgnoreCase(name)
+                .orElseThrow(() -> {
+                    log.error("Не найдена страна с именем: {}", name);
+                    return new CustomException("Не найдена страна по названию!");
+                });
         return mapModelToResponceDto(countryFromDb);
     }
 
@@ -67,6 +82,9 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public Country findById(Long id) {
-        return countryRepository.findById(id).orElseThrow(() -> new CustomException("Не найдена страна по идентификатору"));
+        return countryRepository.findById(id).orElseThrow(() -> {
+            log.error("Не найдена страна с id: {}", id);
+            return new CustomException("Не найдена страна с id:"+id);
+        });
     }
 }

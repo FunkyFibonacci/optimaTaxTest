@@ -93,6 +93,7 @@ type Country{
 input CountryInput{
     name:String!
     code:String!
+    reportFormat:String!
 }
 
 #Типы для категорий

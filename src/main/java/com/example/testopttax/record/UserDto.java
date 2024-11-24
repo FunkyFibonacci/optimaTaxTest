@@ -15,6 +15,7 @@ public record UserDto(
         @Schema(description = "Уникальное имя пользователя (логин)", example = "ivan_ivanov")
         String username,
 
+
         @Schema(description = "Пароль пользователя", example = "password123")
         String password,
 

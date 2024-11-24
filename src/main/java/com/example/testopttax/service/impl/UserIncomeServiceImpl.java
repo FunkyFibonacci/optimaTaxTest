@@ -27,11 +27,19 @@ public class UserIncomeServiceImpl implements UserIncomeService {
     private final IncomeCategoryService incomeCategoryService;
 
     @Override
-//    @Transactional(rollbackOn = Exception.class)
     public UserIncomeResponceDto addIncome(UserIncomeInput input) {
         User authUser = userService.getUserBySecurityHolder(SecurityContextHolder.getContext().getAuthentication());
         IncomeCategory incomeCategory = incomeCategoryService.findById(input.incomeCategoryId());
         BigDecimal amountBigInt = BigDecimal.valueOf(input.amount());
+
+        UserIncome existingUserIncome = userIncomeRepository
+                .findByUserAndIncomeCategory(authUser, incomeCategory);
+
+        if (existingUserIncome != null) {
+            existingUserIncome.setAmount(existingUserIncome.getAmount().add(amountBigInt));
+            UserIncome userIncomeSaved = userIncomeRepository.save(existingUserIncome);
+            return mapModelToDto(userIncomeSaved);
+        }
 
         UserIncome userIncome = new UserIncome();
         userIncome.setUser(authUser);

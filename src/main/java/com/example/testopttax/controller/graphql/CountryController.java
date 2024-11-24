@@ -3,6 +3,7 @@ package com.example.testopttax.controller.graphql;
 import com.example.testopttax.record.country.CountryInput;
 import com.example.testopttax.record.country.CountryResponceDto;
 import com.example.testopttax.service.CountryService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
@@ -16,7 +17,7 @@ public class CountryController {
     private final CountryService countryService;
 
     @MutationMapping
-    public CountryResponceDto addCountry(@Argument("input") CountryInput input) {
+    public CountryResponceDto addCountry(@Argument("input") @Valid CountryInput input) {
         return countryService.addCountry(input);
     }
     @QueryMapping

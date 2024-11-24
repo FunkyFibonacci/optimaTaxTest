@@ -13,4 +13,12 @@ public enum ReportFormat {
     ReportFormat(String value) {
         this.value = value;
     }
+    public static boolean isValid(String value) {
+        for (ReportFormat format : values()) {
+            if (format.getValue().equalsIgnoreCase(value)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

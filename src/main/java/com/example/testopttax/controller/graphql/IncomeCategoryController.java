@@ -3,6 +3,7 @@ package com.example.testopttax.controller.graphql;
 import com.example.testopttax.record.incomeCategory.IncomeCategoryInput;
 import com.example.testopttax.record.incomeCategory.IncomeCategoryResponceDto;
 import com.example.testopttax.service.IncomeCategoryService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
@@ -17,7 +18,7 @@ public class IncomeCategoryController {
     private final IncomeCategoryService incomeCategoryService;
 
     @MutationMapping
-    public IncomeCategoryResponceDto addIncomeCategory(@Argument("input")IncomeCategoryInput input){
+    public IncomeCategoryResponceDto addIncomeCategory(@Argument("input") @Valid IncomeCategoryInput input){
         return incomeCategoryService.addIncomeCategory(input);
     }
 

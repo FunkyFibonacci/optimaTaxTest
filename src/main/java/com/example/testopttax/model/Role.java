@@ -19,4 +19,8 @@ public class Role extends Model{
     private String role;
     @OneToMany(fetch = FetchType.EAGER,mappedBy = "role")
     private Set<User> users;
+
+
+    public Role(int i, Object o, Object o1, String value) {
+    }
 }

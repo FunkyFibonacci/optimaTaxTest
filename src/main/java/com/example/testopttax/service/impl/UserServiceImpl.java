@@ -72,8 +72,10 @@ public class UserServiceImpl implements UserService {
                 .lastname(userDto.lastname())
                 .username(userDto.username())
                 .password(passwordEncoder.encode(userDto.password()))
-                .role(roleRepository.findByRoleIgnoreCase(Roles.USER.getValue()).orElseThrow(
-                        () -> new IllegalArgumentException("Роль не найдена")))
+                .role(roleRepository.findByRoleIgnoreCase(Roles.USER.getValue()).orElseThrow(() -> {
+                    log.error("Роль не найдена для создания!");
+                    return new CustomException("Не найдена роль для создания юзера!");
+                }))
                 .build();
     }
 

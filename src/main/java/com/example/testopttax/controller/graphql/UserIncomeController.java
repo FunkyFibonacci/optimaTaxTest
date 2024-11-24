@@ -4,6 +4,7 @@ import com.example.testopttax.enums.ReportFormat;
 import com.example.testopttax.record.userIncome.UserIncomeInput;
 import com.example.testopttax.record.userIncome.UserIncomeResponceDto;
 import com.example.testopttax.service.UserIncomeService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
@@ -15,8 +16,7 @@ public class UserIncomeController {
     private final UserIncomeService userIncomeService;
 
     @MutationMapping
-    public UserIncomeResponceDto addIncome(@Argument("input")UserIncomeInput input){
-        String value = ReportFormat.DETAILED.getValue();
+    public UserIncomeResponceDto addIncome(@Argument("input") @Valid UserIncomeInput input){
         return userIncomeService.addIncome(input);
     }
 }

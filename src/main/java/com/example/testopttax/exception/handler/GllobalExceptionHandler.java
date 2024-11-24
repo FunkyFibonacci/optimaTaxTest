@@ -23,8 +23,8 @@ public class GllobalExceptionHandler {
         return new ResponseEntity<>(errorService.makeResponse(exception), HttpStatus.CONFLICT);
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorResponseBody> validationHandler(MethodArgumentNotValidException exception) {
-        return new ResponseEntity<>(errorService.makeResponse(exception.getBindingResult()), HttpStatus.BAD_REQUEST);
-    }
+//    @ExceptionHandler(MethodArgumentNotValidException.class)
+//    public ResponseEntity<ErrorResponseBody> validationHandler(MethodArgumentNotValidException exception) {
+//        return new ResponseEntity<>(errorService.makeResponse(exception.getBindingResult()), HttpStatus.BAD_REQUEST);
+//    }
 }

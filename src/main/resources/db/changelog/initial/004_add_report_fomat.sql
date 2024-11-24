@@ -1,10 +1,9 @@
 --liquibase formatted sql
 --changeset beren:alter_table_and_insert_data_of_income_user
 
-CREATE TYPE report_format_type AS ENUM ('DETAILED', 'SUMMARY', 'CATEGORY_WITH_SIGNATURE');
 
 ALTER TABLE countries
-    ADD COLUMN report_format report_format_type;
+    ADD COLUMN report_format varchar(255) ;
 
 UPDATE countries
 SET report_format = 'DETAILED'
