@@ -65,7 +65,10 @@ public class TaxRateServiceImpl implements TaxRateService {
     @Override
     public TaxRateResponceDto updateTaxRate(TaxRateInput input) {
         TaxRate taxRate = taxRateRepository.findTaxRateByCountryIdAndIncomeCategoryId(input.countryId(), input.incomeCategoryId()).orElseThrow(() -> new CustomException("Не найдена запись налоговых ставок по идентификатору страны и категории дохода"));
-        taxRate.setRate(bigDecimalFromFloat(input.rate()));
+        BigDecimal rate = bigDecimalFromFloat(input.rate());
+
+        taxRate.setRate(rate);
+
         TaxRate updatedTaxRate = taxRateRepository.save(taxRate);
         return mapModelToResponceDto(updatedTaxRate);
     }
@@ -80,6 +83,10 @@ public class TaxRateServiceImpl implements TaxRateService {
     }
 
     private BigDecimal bigDecimalFromFloat(Float data){
+        if (data > 999){
+            log.error("Ввели слишком большое значени для процентной ставки налога!");
+            throw new CustomException("Процентная ставка должна быть меньше 999)");
+        }
         return BigDecimal.valueOf(data).setScale(2, RoundingMode.HALF_UP);
     }
 

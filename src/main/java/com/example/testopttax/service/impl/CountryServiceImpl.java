@@ -6,6 +6,7 @@ import com.example.testopttax.model.Country;
 import com.example.testopttax.record.country.CountryInput;
 import com.example.testopttax.record.country.CountryResponceDto;
 import com.example.testopttax.repo.CountryRepository;
+import com.example.testopttax.repo.UserRepository;
 import com.example.testopttax.service.CountryService;
 import graphql.GraphQLException;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +31,10 @@ public class CountryServiceImpl implements CountryService {
             throw new CustomException("Код страны должен быть равен 3 символам!");
         }
 
+        if (countryRepository.findByNameIgnoreCase(input.name()).isPresent() || countryRepository.findByCodeIgnoreCase(input.code()).isPresent()){
+            log.error("Страна с таким названием или кодом уже существует!");
+            throw new CustomException("Страна с таким названием или кодом уже существует!");
+        }
         ReportFormat reportFormat;
         try {
             reportFormat = ReportFormat.valueOf(input.reportFormat());
@@ -54,7 +59,8 @@ public class CountryServiceImpl implements CountryService {
                 country.getCreatedAt(),
                 country.getUpdatedAt(),
                 country.getName(),
-                country.getCode()
+                country.getCode(),
+                country.getReportFormat().getValue()
                 )
         ).collect(Collectors.toList());
     }
@@ -77,7 +83,7 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public CountryResponceDto mapModelToResponceDto(Country country){
-        return new CountryResponceDto(country.getId(), country.getCreatedAt(), country.getUpdatedAt(), country.getName(),country.getCode());
+        return new CountryResponceDto(country.getId(), country.getCreatedAt(), country.getUpdatedAt(), country.getName(),country.getCode(),country.getReportFormat().getValue());
     }
 
     @Override
