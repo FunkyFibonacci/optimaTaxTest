@@ -1,12 +1,15 @@
 server:
   port: 8080
-
+#юзер для basic auth
+#login:admin
+#pass:qweqwe
 
 spring:
   datasource:
+#    конфиг БД PostgreSQL
     url: jdbc:postgresql://localhost:5432/tax
     username: postgres
-    password: 314159265351
+    password: 12345678
     driver-class-name: org.postgresql.Driver
   liquibase:
     change-log: classpath:/db/changelog/master.yaml

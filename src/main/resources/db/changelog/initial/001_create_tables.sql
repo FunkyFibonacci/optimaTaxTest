@@ -1,5 +1,4 @@
 -- liquibase formatted sql
-
 -- changeset Beren:create_tables
 
 CREATE TABLE countries
