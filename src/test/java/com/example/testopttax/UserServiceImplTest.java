@@ -7,7 +7,6 @@ import com.example.testopttax.record.UserDto;
 import com.example.testopttax.record.UserResponceDto;
 import com.example.testopttax.repo.RoleRepository;
 import com.example.testopttax.repo.UserRepository;
-import com.example.testopttax.service.UserService;
 import com.example.testopttax.service.impl.UserServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,8 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -39,7 +37,7 @@ public class UserServiceImplTest {
     }
     @Test
     void createUserSuccessCreatedUser(){
-        UserDto userDto = new UserDto("John", "Doe", "john.doe", "password123","USER");
+        UserDto userDto = new UserDto("John", "Doe", "john.doe", "password123",null);
         Role mockRole = new Role(1, null, null, Roles.USER.getValue());
         User user = User.builder()
                 .firstname("John")
@@ -61,5 +59,14 @@ public class UserServiceImplTest {
         assertEquals("john.doe", result.username());
         verify(userRepository, times(1)).save(any(User.class));
 
+    }
+
+
+    @Test
+    void createUser_ShouldThrowException_WhenUserAlreadyExists() {
+        UserDto userDto = new UserDto("John", "Doe", "john.doe", "password123", null);
+        when(userRepository.getUserByUsername(userDto.username())).thenReturn(Optional.of(new User()));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> userService.createUser(userDto));
+        assertEquals("Пользователь с таким логином существует!".toLowerCase(),exception.getMessage().toLowerCase());
     }
 }

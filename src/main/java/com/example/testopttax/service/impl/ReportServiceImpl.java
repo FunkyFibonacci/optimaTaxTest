@@ -30,7 +30,7 @@ public class ReportServiceImpl implements ReportService {
     public CountryReportResponceDto makeReportByCountryId(Long countryId) {
         if (countryId == null) {
             log.error("ID страны не может быть null");
-            throw new CustomException("ID страны не указан.");
+            throw new CustomException("ID страны не указан!");
         }
         User user = userService.getUserBySecurityHolder(SecurityContextHolder.getContext().getAuthentication());
         Country country = countryService.findById(countryId);

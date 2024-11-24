@@ -31,6 +31,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponceDto createUser(UserDto userDto) {
         if (userRepository.getUserByUsername(userDto.username()).isPresent()){
+            log.error("Пользователь с таким логином: {} уже сущестует!", userDto.username());
             throw new IllegalArgumentException("Пользователь с таким логином существует!");
         }
 
