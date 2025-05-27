@@ -1,3 +1,4 @@
+scalar LocalTime
 type Query {
 #    методы для юзера
     getAllUsers: [User]
@@ -15,6 +16,11 @@ type Query {
 
 #    Методы для получен отчета
     generateReportByCountryId(countryId:ID!):CountryReport!
+
+    #-----------------------------------------------------------
+    # ВКР МЛ
+    checkFraud(transaction: TransactionInput!): Boolean
+
 }
 
 type Mutation {
@@ -30,7 +36,13 @@ type Mutation {
 
 #    Мутации для доходов юзера
     addIncome(input: UserIncomeInput!): UserIncome
+
+    #-----------------------------------------------------------
+    # ВКР МЛ
+    trainModelForFraud(transactionData: [TransactionInput!]!): [Transactions]
 }
+
+
 
 
 #Типы для отчетов
@@ -41,6 +53,25 @@ type CountryReport{
     incomeDetail:[IncomeDetail]
     signature: String
 }
+
+type Transactions {
+    amount: Float!
+    type: String!
+    balance: Float!
+    age: Int!
+    time: LocalTime!
+    fraud: Boolean!
+}
+
+input TransactionInput {
+    amount: Float!
+    type: String!
+    balance: Float!
+    age: Int!
+    time: LocalTime!
+    fraud: Boolean
+}
+
 
 type IncomeDetail{
     incomeCategory:IncomeCategory
