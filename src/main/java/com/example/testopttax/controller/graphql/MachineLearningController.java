@@ -4,6 +4,7 @@ package com.example.testopttax.controller.graphql;
 import com.example.testopttax.exception.CustomException;
 import com.example.testopttax.record.mlDtos.TransactionData;
 import com.example.testopttax.service.impl.FraudTrainingService;
+import com.example.testopttax.service.impl.PaymentService;
 import jdk.dynalink.linker.LinkerServices;
 import lombok.RequiredArgsConstructor;
 import org.springframework.graphql.data.method.annotation.Argument;
@@ -18,7 +19,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MachineLearningController {
     private final FraudTrainingService fraudTrainingService;
+    private final PaymentService paymentService;
 
+    /*
+    Метод для тренировки модели
+     */
     @MutationMapping
     public List<TransactionData> trainModelForFraud(@Argument("transactionData")  List<TransactionData> transactionData) {
         try{
@@ -29,6 +34,9 @@ public class MachineLearningController {
 
     }
 
+    /*
+    Проверка транзакции на фрод
+     */
     @QueryMapping
     public Boolean checkFraud(@Argument("transaction") TransactionData transaction) {
         try {
@@ -37,4 +45,21 @@ public class MachineLearningController {
             throw new CustomException("Ошибка при проверке транзакции");
         }
     }
+
+    /*
+    Получение всех платежей
+     */
+    @QueryMapping
+    public List<TransactionData> getPayments() {
+        return this.paymentService.getPayments();
+    }
+
+    /*
+    Создание транзакции с помощью уже сущ. модели
+     */
+    @MutationMapping
+    public TransactionData createPaymentWithTraningModel(@Argument TransactionData payment){
+            return this.paymentService.createPaymentWithTraningModel(payment);
+    }
+
 }

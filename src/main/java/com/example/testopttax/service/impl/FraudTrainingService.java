@@ -68,11 +68,15 @@ public class FraudTrainingService {
         return transactions;
     }
 
-    public Boolean checkForFraud(TransactionData transactionData) throws Exception {
+
+    //Метод на проверку ФРОДА
+    public Boolean checkForFraud(TransactionData transactionData)  {
         // Загружаем существующую модель
-        RandomForest model;
+        RandomForest model = null;
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("fraud_model.model"))) {
             model = (RandomForest) ois.readObject();
+        } catch (Exception e){
+            System.out.println(e.getMessage());
         }
 
         // Создаем атрибуты
@@ -103,10 +107,15 @@ public class FraudTrainingService {
         instance.setDataset(dataset);
 
         dataset.add(instance);
+        double prediction = 0.0;
+        try {
+            prediction = model.classifyInstance(instance);
 
-        double prediction = model.classifyInstance(instance);
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
 
         // Если prediction == 1, то это мошенничество, если 0, то нет
-        return prediction > 0.60;
+        return prediction > 0.80;
     }
 }

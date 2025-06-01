@@ -17,10 +17,10 @@ type Query {
 #    Методы для получен отчета
     generateReportByCountryId(countryId:ID!):CountryReport!
 
-    #-----------------------------------------------------------
-    # ВКР МЛ
+    # Проверка трназакции на фрод
     checkFraud(transaction: TransactionInput!): Boolean
-
+    # Получение всех транзакций
+    getPayments:[Payment]
 }
 
 type Mutation {
@@ -36,10 +36,10 @@ type Mutation {
 
 #    Мутации для доходов юзера
     addIncome(input: UserIncomeInput!): UserIncome
-
-    #-----------------------------------------------------------
-    # ВКР МЛ
+    # Тренировка модели
     trainModelForFraud(transactionData: [TransactionInput!]!): [Transactions]
+    # Создание платежа c проверкой на МО
+    createPaymentWithTraningModel(payment: PaymentInput):Payment
 }
 
 
@@ -61,6 +61,24 @@ type Transactions {
     age: Int!
     time: LocalTime!
     fraud: Boolean!
+}
+
+type Payment {
+    amount: Float
+    type: String
+    balance: Float
+    age: Int
+    time: LocalTime
+    coordinates: String
+}
+
+input PaymentInput {
+    amount: Float
+    type: String
+    balance: Float
+    age: Int
+    time: LocalTime
+    coordinates: String
 }
 
 input TransactionInput {

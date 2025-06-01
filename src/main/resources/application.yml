@@ -9,7 +9,7 @@ spring:
 #    конфиг БД PostgreSQL
     url: jdbc:postgresql://localhost:5432/tax
     username: postgres
-    password: 12345678
+    password: 314159265351
     driver-class-name: org.postgresql.Driver
   liquibase:
     change-log: classpath:/db/changelog/master.yaml

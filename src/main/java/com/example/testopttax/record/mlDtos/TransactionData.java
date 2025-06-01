@@ -8,6 +8,7 @@ public record TransactionData(
         Float balance,
         Integer age,
         LocalTime time,
+        String coordinates,
         Boolean fraud
 ) {
 }
